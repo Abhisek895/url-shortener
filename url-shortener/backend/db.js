@@ -3,12 +3,23 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+// Validate required environment variables at startup
+const REQUIRED_ENV_VARS = ['DB_HOST', 'DB_PORT', 'DB_USER', 'DB_PASSWORD', 'DB_NAME'];
+const missingVars = REQUIRED_ENV_VARS.filter((key) => !process.env[key]);
+if (missingVars.length > 0) {
+  console.error('❌ Missing required environment variables:', missingVars.join(', '));
+  console.error('   Please set these in your Render dashboard under Environment > Environment Variables.');
+  process.exit(1); // Fail fast — no point starting without a DB config
+}
+
+console.log(`✅ DB config loaded — host: ${process.env.DB_HOST}:${process.env.DB_PORT}, db: ${process.env.DB_NAME}`);
+
 // Create connection pool
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT || 3306,
+  port: parseInt(process.env.DB_PORT) || 3306,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
