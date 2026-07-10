@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaCopy, FaSignOutAlt, FaLink } from 'react-icons/fa';
 
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 export default function Dashboard() {
   const [url, setUrl] = useState('');
   const [links, setLinks] = useState([]);
@@ -14,7 +16,7 @@ export default function Dashboard() {
       const token = localStorage.getItem('token');
       if (!token) return navigate('/auth');
       
-      const res = await axios.get('http://localhost:5000/api/links', {
+      const res = await axios.get(`${API_BASE}/api/links`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setLinks(res.data);
@@ -35,7 +37,7 @@ export default function Dashboard() {
     setError('');
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/shorten', 
+      await axios.post(`${API_BASE}/api/shorten`, 
         { original_url: url },
         { headers: { Authorization: `Bearer ${token}` }}
       );
@@ -86,19 +88,19 @@ export default function Dashboard() {
             <div key={link.id} className="link-item">
               <div className="overflow-hidden pe-3">
                 <a 
-                  href={`http://localhost:5000/${link.short_code}`} 
+                  href={`${API_BASE}/${link.short_code}`} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="short-url fs-5 d-block mb-1 text-truncate"
                 >
-                  http://localhost:5000/{link.short_code}
+                  {API_BASE}/{link.short_code}
                 </a>
                 <div className="text-muted-custom text-truncate">{link.original_url}</div>
               </div>
               <button 
                 className="copy-btn flex-shrink-0" 
                 title="Copy to clipboard"
-                onClick={() => navigator.clipboard.writeText(`http://localhost:5000/${link.short_code}`)}
+                onClick={() => navigator.clipboard.writeText(`${API_BASE}/${link.short_code}`)}
               >
                 <FaCopy size={22} />
               </button>

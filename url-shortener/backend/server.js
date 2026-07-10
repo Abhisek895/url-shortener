@@ -8,7 +8,14 @@ const pool = require('./db');
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:5173',   // Vite dev server
+    'http://localhost:3000',
+    process.env.FRONTEND_URL,  // Set this on Render once frontend is deployed
+  ].filter(Boolean),
+  credentials: true,
+}));
 app.use(express.json());
 
 // Main API Routes

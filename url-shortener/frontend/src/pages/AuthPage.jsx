@@ -13,7 +13,8 @@ export default function AuthPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    const url = isLogin ? 'http://localhost:5000/api/login' : 'http://localhost:5000/api/signup';
+    const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    const url = isLogin ? `${API_BASE}/api/login` : `${API_BASE}/api/signup`;
     
     try {
       const res = await axios.post(url, { username, password });

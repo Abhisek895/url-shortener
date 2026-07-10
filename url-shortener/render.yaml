@@ -1,4 +1,5 @@
 services:
+  # Backend API (Docker)
   - type: web
     name: url-shortener-backend
     runtime: docker
@@ -19,3 +20,17 @@ services:
         sync: false   # Set this in Render dashboard
       - key: JWT_SECRET
         sync: false   # Set this in Render dashboard
+      - key: FRONTEND_URL
+        sync: false   # Set to your frontend Render URL once deployed (e.g. https://url-shortener-frontend.onrender.com)
+
+  # Frontend (Docker + Nginx)
+  - type: web
+    name: url-shortener-frontend
+    runtime: docker
+    dockerfilePath: ./frontend/Dockerfile
+    dockerContext: ./frontend
+    dockerBuildArgs:
+      - VITE_API_URL=https://url-shortener-0h1c.onrender.com
+    envVars:
+      - key: VITE_API_URL
+        value: https://url-shortener-0h1c.onrender.com
