@@ -9,19 +9,19 @@ services:
       - key: PORT
         value: 10000
       - key: DB_HOST
-        sync: false   # Set this in Render dashboard
+        value: mysql-2b3b1439-sarkarabhisek50-d610.l.aivencloud.com
       - key: DB_PORT
-        sync: false   # Set this in Render dashboard
+        value: 22838
       - key: DB_USER
-        sync: false   # Set this in Render dashboard
+        value: avnadmin
       - key: DB_PASSWORD
-        sync: false   # Set this in Render dashboard
+        value: REPLACED_SEE_RENDER_DASHBOARD
       - key: DB_NAME
-        sync: false   # Set this in Render dashboard
+        value: defaultdb
       - key: JWT_SECRET
-        sync: false   # Set this in Render dashboard
+        value: REPLACED_SEE_RENDER_DASHBOARD
       - key: FRONTEND_URL
-        sync: false   # Set to your frontend Render URL once deployed (e.g. https://url-shortener-frontend.onrender.com)
+        value: https://url-shortener-frontend.onrender.com
 
   # Frontend (Docker + Nginx)
   - type: web
