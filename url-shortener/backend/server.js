@@ -15,6 +15,11 @@ app.use(express.json());
 app.use('/api', authRoutes);
 app.use('/api', linkRoutes);
 
+// Base route for health check
+app.get('/', (req, res) => {
+  res.send('URL Shortener API is running');
+});
+
 // Redirect Route
 app.get('/:shortcode', async (req, res) => {
   try {
