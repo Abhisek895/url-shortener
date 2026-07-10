@@ -15,11 +15,11 @@ services:
       - key: DB_USER
         value: avnadmin
       - key: DB_PASSWORD
-        value: REPLACED_SEE_RENDER_DASHBOARD
+        sync: false
       - key: DB_NAME
         value: defaultdb
       - key: JWT_SECRET
-        value: REPLACED_SEE_RENDER_DASHBOARD
+        sync: false
       - key: FRONTEND_URL
         value: https://url-shortener-frontend.onrender.com
 
